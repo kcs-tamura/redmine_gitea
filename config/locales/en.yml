@@ -1,0 +1,11 @@
+en:
+  label_gitea_access_token: Access token
+  label_gitea_webhook_secret: Webhook secret
+  label_gitea_webhook_url: Webhook URL
+  label_gitea_mirror_status: Mirror status
+  text_gitea_url_info: "e.g. https://git.example.com/owner/repo.git"
+  text_gitea_access_token_info: "Required for private repositories (read:repository scope). Leave empty for public repositories."
+  text_gitea_webhook_secret_info: "Same value as the secret of the Gitea webhook. Webhooks are rejected while it is empty."
+  text_gitea_webhook_url_info: "In Gitea: repository Settings > Webhooks > Gitea, set this URL and the secret above (Content type: application/json)."
+  text_gitea_mirror_ready: Ready
+  text_gitea_mirror_pending: "Pending (cloning in the background)"
