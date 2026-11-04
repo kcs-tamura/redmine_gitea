@@ -1,0 +1,49 @@
+<p>
+  <%= form.text_field :url, label: l(:field_url), size: 60, required: true,
+                      disabled: !repository.safe_attribute?('url') %>
+  <em class="info"><%= l(:text_gitea_url_info) %></em>
+</p>
+<p>
+  <%= form.password_field :access_token, label: l(:label_gitea_access_token), size: 30,
+                          name: 'ignore',
+                          value: (repository.new_record? || repository.access_token.blank? ? '' : ('x' * 15)),
+                          onfocus: "this.value=''; this.name='repository[access_token]';",
+                          onchange: "this.name='repository[access_token]';" %>
+  <em class="info"><%= l(:text_gitea_access_token_info) %></em>
+</p>
+<% if repository.persisted? %>
+  <p>
+    <label><%= l(:label_gitea_webhook_url) %></label>
+    <code><%= gitea_webhook_url(repository) %></code>
+    <em class="info"><%= l(:text_gitea_webhook_url_info) %></em>
+  </p>
+  <p>
+    <label for="gitea_webhook_secret_current"><%= l(:label_gitea_webhook_secret) %></label>
+    <% if repository.webhook_secret.present? %>
+      <details class="gitea-webhook-secret">
+        <summary><%= l(:label_gitea_show_secret) %></summary>
+        <input type="text" id="gitea_webhook_secret_current" readonly size="70"
+               value="<%= repository.webhook_secret %>" onfocus="this.select();"
+               aria-label="<%= l(:label_gitea_webhook_secret) %>">
+      </details>
+    <% else %>
+      <em><%= l(:text_gitea_webhook_secret_missing) %></em>
+    <% end %>
+  </p>
+<% end %>
+<p>
+  <%= form.password_field :webhook_secret,
+                          label: (repository.persisted? ? l(:label_gitea_webhook_secret_change) : l(:label_gitea_webhook_secret)),
+                          size: 30, name: 'ignore', value: '', autocomplete: 'new-password',
+                          onfocus: "this.name='repository[webhook_secret]';",
+                          onchange: "this.name='repository[webhook_secret]';" %>
+  <em class="info"><%= repository.persisted? ? l(:text_gitea_webhook_secret_change_info) : l(:text_gitea_webhook_secret_info) %></em>
+</p>
+<% if repository.persisted? %>
+  <p>
+    <label><%= l(:label_gitea_mirror_status) %></label>
+    <%= repository.cloned? ? l(:text_gitea_mirror_ready) : l(:text_gitea_mirror_pending) %>
+  </p>
+<% end %>
+<%= scm_path_encoding_tag(form, repository) %>
+<p><%= form.check_box :report_last_commit, label: l(:label_git_report_last_commit) %></p>
