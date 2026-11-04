@@ -13,6 +13,7 @@ class Repository::Gitea < ::Repository::Git
 
   validate :validate_remote_url
 
+  before_validation :generate_webhook_secret, on: :create
   before_save :assign_local_root_url
   after_commit :enqueue_sync, on: %i[create update]
   after_destroy_commit :remove_local_mirror
@@ -57,7 +58,11 @@ class Repository::Gitea < ::Repository::Git
     password
   end
 
+  # Blank input never clears an existing secret (the edit form submits an empty field when the
+  # user focuses it without typing). New repositories get a generated secret instead.
   def webhook_secret=(secret)
+    return if secret.blank?
+
     build_gitea_credential if gitea_credential.blank?
     gitea_credential.webhook_secret = secret
   end
@@ -71,6 +76,11 @@ class Repository::Gitea < ::Repository::Git
   end
 
   private
+
+  # A repository is always created with a secret so the webhook can be configured right away.
+  def generate_webhook_secret
+    self.webhook_secret = SecureRandom.hex(32) if webhook_secret.blank?
+  end
 
   def validate_remote_url
     uri = URI.parse(url.to_s)

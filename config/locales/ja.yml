@@ -1,11 +1,15 @@
 ja:
   label_gitea_access_token: アクセストークン
   label_gitea_webhook_secret: Webhook シークレット
+  label_gitea_webhook_secret_change: Webhook シークレットの変更
+  label_gitea_show_secret: 表示
   label_gitea_webhook_url: Webhook URL
   label_gitea_mirror_status: ミラー状態
   text_gitea_url_info: "例: https://git.example.com/owner/repo.git"
   text_gitea_access_token_info: "非公開リポジトリの場合に必要です (read:repository 権限)。空欄なら公開リポジトリとして取得します。"
-  text_gitea_webhook_secret_info: "Gitea の Webhook に設定するシークレットと同じ値。未設定の場合 Webhook は受け付けません。"
-  text_gitea_webhook_url_info: "Gitea のリポジトリ設定 → Webhook → Gitea に、この URL と上のシークレットを設定してください (Content type: application/json)。"
+  text_gitea_webhook_secret_info: "空欄なら自動生成します。作成後の編集画面で確認できます。"
+  text_gitea_webhook_secret_change_info: "変更する場合だけ入力してください。空欄なら今のシークレットのままです。"
+  text_gitea_webhook_secret_missing: "未設定のため Webhook を受け付けません。下の欄で設定してください。"
+  text_gitea_webhook_url_info: "Gitea のリポジトリ設定 → Webhook → Gitea に、この URL と下のシークレットを設定してください (Content type: application/json)。"
   text_gitea_mirror_ready: 取得済み
   text_gitea_mirror_pending: "取得待ち (バックグラウンドで clone 中)"

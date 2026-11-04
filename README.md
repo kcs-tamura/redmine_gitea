@@ -35,11 +35,12 @@ bundle exec rake redmine:plugins:migrate NAME=redmine_gitea RAILS_ENV=production
 ## 使い方
 
 1. プロジェクトの 設定 → リポジトリ → 新しいリポジトリ で、バージョン管理システム「Gitea」を選ぶ
-2. URL、(非公開なら) アクセストークン、Webhook シークレットを入力して作成
+2. URL と (非公開なら) アクセストークンを入力して作成
    - トークンは Gitea の 設定 → アプリケーション で `read:repository` 権限のものを発行
-3. 作成後の編集画面に表示される **Webhook URL** を、Gitea のリポジトリ 設定 → Webhook → 「Gitea」 に登録
+   - Webhook シークレットは空欄なら自動生成されます (自分で決めた値を入れても可)
+3. 作成後の編集画面に表示される **Webhook URL** と **Webhook シークレット** (「表示」で開く) を、
+   Gitea のリポジトリ 設定 → Webhook → 「Gitea」 に登録
    - Content type: `application/json`
-   - Secret: 手順 2 と同じ値
    - トリガー: プッシュ (ブランチ/タグの作成・削除も取り込み対象)
 4. Gitea の「テスト配信」で 202 が返れば完了
 
